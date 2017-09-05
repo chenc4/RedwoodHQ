@@ -139,7 +139,7 @@ Ext.define('Redwood.view.ProjectEdit', {
                 {
                     xtype:'combo',
                     fieldLabel: 'Project Template',
-                    store: ["Default","Java Based Selenium"],
+                    store: ["Default","Java Based Selenium", "Java Based Appium"],
                     name: 'template',
                     value:"Default",
                     forceSelection: true,
