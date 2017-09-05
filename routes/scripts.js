@@ -681,6 +681,9 @@ exports.CreateNewProject = function(projectName,language,template,callback){
         if (template == "Java Based Selenium") {
             template = "java_project_selenium";
         }
+		else if (template == "Java Based Appium") {
+			template = "java_project_appium";
+		}
         else{
             template = "java_project";
         }
