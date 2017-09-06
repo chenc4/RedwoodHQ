@@ -983,10 +983,10 @@ exports.deleteFiles = function(workdir,file,callback){
     //var git  = spawn(path.resolve(__dirname,'../vendor/Git/bin/git.exe'),['commit','-a','-m','files/file removed'],{cwd: workdir,timeout:300000});
     var git;
     if(process.platform == "win32"){
-        git = spawn(path.resolve(__dirname,'../vendor/Git/usr/bin/rm'),['-R',file],{cwd: workdir,timeout:300000});
+        git = spawn(path.resolve(__dirname,'../vendor/Git/usr/bin/rm'),['-f','-R',file],{cwd: workdir,timeout:300000});
     }
     else{
-        git = spawn('rm',['-R',file],{cwd: workdir,timeout:300000});
+        git = spawn('rm',['-f','-R',file],{cwd: workdir,timeout:300000});
     }
 
     git.stdout.on('data', function (data) {
@@ -1011,7 +1011,7 @@ exports.delete = function(workdir,file,callback){
     var stats = fs.lstatSync(file);
     var git = null;
     if (stats.isDirectory() == true){
-        git  = spawn(path.resolve(__dirname,'../vendor/Git/bin/git'),['rm','-r',file],{cwd: workdir,timeout:300000});
+        git  = spawn(path.resolve(__dirname,'../vendor/Git/bin/git'),['rm','-f','-r',file],{cwd: workdir,timeout:300000});
     }
     else{
         git  = spawn(path.resolve(__dirname,'../vendor/Git/bin/git'),['rm','-f',file],{cwd: workdir,timeout:300000});
@@ -1094,4 +1094,3 @@ exports.getGitInfo = function (path){
     //gitPath = gitPath.slice(0,gitPath.lastIndexOf("/"));
     return {path:gitPath,fileName:FileName}
 };
-
