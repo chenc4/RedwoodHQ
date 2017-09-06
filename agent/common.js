@@ -127,7 +127,7 @@ function sendFileToServer(file,id,url,agentHost,port,cookie,callback){
             'Connection': 'Close',
             'Cookie': cookie,
             'Content-Type': 'multipart/form-data; boundary=----'+boundary,
-            'Content-Length': stat.size + message.length + boundary.length + 14
+            'Content-Length': stat.size + Buffer.byteLength(message) + boundary.length + 14
         }
     };
 
