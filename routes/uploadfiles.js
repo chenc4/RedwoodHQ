@@ -10,8 +10,8 @@ exports.uploadFromAgent = function(req, res){
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
         if (err){
-			res.send('{error:"'+err+'"}');
-			return;
+	    res.send('{error:"'+err+'"}');
+	    return;
 		}
         // get the temporary location of the file
         var tmp_path = files.file[0].path;
