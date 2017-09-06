@@ -16,7 +16,7 @@ exports.uploadFiles = function(req, res){
     var javaPath = path.resolve(__dirname,"../../vendor/Java/bin")+"/java";
 
     //var proc = spawn(javaPath,["-cp",".","FileChooser"],{env:{PATH:baseDir+"\\lib"},cwd:baseDir});
-    var proc = spawn('"'+javaPath+"\" -cp . FileChooser",{env:{PATH:baseDir+"\\lib"},cwd:baseDir});
+    var proc = spawn('"'+javaPath+"\" -Dfile.encoding=UTF-8 -cp . FileChooser",{env:{PATH:baseDir+"\\lib"},cwd:baseDir});
 
     var cache = "";
     proc.stdout.on('data', function (data) {
