@@ -198,7 +198,7 @@ exports.Post = function(req, res){
                     zip = new AdmZip(target_path);
                     var extractTo = path.resolve(__dirname,"../")+"/"+req.files.file.name.substring(0,req.files.file.name.lastIndexOf("/"));
                     zip.extractAllTo(extractTo, true);
-                    res.send("{error:null,success:true}");
+                    res.send('{"error":null,"success":true}');
                     SaveToCache(req.files.file.name,target_path);
                     //var unzip  = spawn(path.resolve(__dirname,'../../vendor/Java/bin/jar'),['xf','pythonLibs.zip'],{cwd: extractTo,timeout:300000});
                 }
@@ -215,7 +215,7 @@ exports.Post = function(req, res){
                     copyFile(path.resolve(__dirname,'../../vendor/Python')+"/"+pythonFileName,path.resolve(extractTo,"../")+"/"+pythonFileName,function(){
                         extractTo = path.resolve(extractTo,"../")+"/src/";
                         zip.extractAllTo(extractTo, true);
-                        res.send("{error:null,success:true}");
+                        res.send('{"error":null,"success":true}');
 
                         //fs.mkdir(extractTo,function(){
                         //    var unzip  = spawn(path.resolve(__dirname,'../../vendor/Java/bin/jar'),['xf',target_path],{cwd: extractTo,timeout:300000});
@@ -224,13 +224,13 @@ exports.Post = function(req, res){
                 else if(req.files.file.name.indexOf("RedwoodHQAutomation.dll") != -1 ){
                     var extractTo = path.resolve(__dirname,"../")+"/"+req.files.file.name.substring(0,req.files.file.name.lastIndexOf("/"));
                     copyFile(path.resolve(__dirname,'../lib')+"/CSharpLauncher.exe",path.resolve(extractTo,"../")+"/lib/CSharpLauncher.exe",function(){
-                        res.send("{error:null,success:true}");
+                        res.send('{"error":null,"success":true}');
                     });
                     SaveToCache(req.files.file.name,target_path);
                 }
                 else{
                     //create cache
-                    res.send("{error:null,success:true}");
+                    res.send('{"error":null,"success":true}');
                     SaveToCache(req.files.file.name,target_path);
                 }
             });
