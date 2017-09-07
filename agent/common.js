@@ -32,7 +32,7 @@ exports.deleteDir = function(dir,callback){
         next();
     });
     walker.on("end", function () {
-        //res.send("{error:null,success:true}");
+        //res.send('{"error":null,"success":true}');
         allDirs.reverse();
         if(errors == ""){
             allDirs.forEach(function(dirCount){
