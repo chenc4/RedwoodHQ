@@ -1717,7 +1717,7 @@ function sendFileToAgent(file,dest,agentHost,port,retryCount,executionID,callbac
                 //'Content-Disposition': 'form-data; name="file"; filename="ProjectName.jar"',
                 //'Content-Length': 3360
                 //'Content-Length': stat.size + message.length + 30 + boundary.length
-                'Content-Length': stat.size + message.length + boundary.length + 14
+                'Content-Length': stat.size + Buffer.byteLength(message) + boundary.length + 14
             }
         };
 
