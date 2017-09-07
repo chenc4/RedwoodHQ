@@ -31,7 +31,7 @@ exports.upload = function(req, res){
 
                     git.add(gitInfo.path,gitInfo.fileName,function(){
                         //git.commit(gitInfo.path,gitInfo.fileName,function(){
-                            res.send("{error:null,success:true}");
+                            res.send('{"error":null,"success":true}');
                         //});
                     });
                 });
