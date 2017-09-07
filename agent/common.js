@@ -135,7 +135,7 @@ function sendFileToServer(file,id,url,agentHost,port,cookie,callback){
         res.on('data', function (chunk) {
             readStream.destroy.bind(readStream);
             readStream.destroy();
-            if (callback) callback(JSON.parse('"' + chunk + '"'));
+            if (callback) callback(JSON.parse(chunk));
         });
         res.on('close', function(){
             readStream.destroy.bind(readStream);
