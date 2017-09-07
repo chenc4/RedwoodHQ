@@ -40,7 +40,7 @@ exports.uploadFromAgent = function(req, res){
 
                         git.add(gitInfo.path,gitInfo.fileName,function(){
                             //git.commit(gitInfo.path,gitInfo.fileName,function(){
-                                res.send("{error:null,success:true}");
+                                res.send('{"error":null,"success":true}');
                             //});
                         });
                     });
@@ -66,7 +66,7 @@ function checkDir(filePath,callback){
 }
 
 exports.uploadDone = function(req, res){
-    res.send("{error:null,success:true}");
+    res.send('{"error":null,"success":true}');
     realtime.emitMessage("FilesUploaded"+req.body.username);
 };
 
