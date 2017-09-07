@@ -172,7 +172,7 @@ function sendFileToAgent(file,dest,agentHost,port,retryCount,callback){
         method: 'POST',
         headers: {
             'Content-Type': 'multipart/form-data; boundary=----'+boundary,
-            'Content-Length': stat.size + message.length + boundary.length + 14
+            'Content-Length': stat.size + Buffer.byteLength(message) + boundary.length + 14
         }
     };
 
