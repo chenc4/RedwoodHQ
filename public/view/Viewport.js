@@ -55,7 +55,8 @@ Ext.define('Redwood.view.Viewport', {
                             icon: 'images/help.png',
                             tooltip: "Go to help page.",
                             handler: function(){
-                                window.open ("http://www.manula.com/manuals/primatest/redwoodhq/2.0/en/topic/documentation");
+                                //window.open ("http://www.manula.com/manuals/primatest/redwoodhq/2.0/en/topic/documentation");
+								window.open("../help/RedwoodHQ使用文档（用例编写及执行人员部分）.pdf")
                             }
 
                         },{
