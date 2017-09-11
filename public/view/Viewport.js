@@ -53,12 +53,25 @@ Ext.define('Redwood.view.Viewport', {
                         {
                             xtype:"button",
                             icon: 'images/help.png',
-                            tooltip: "Go to help page.",
-                            handler: function(){
-                                //window.open ("http://www.manula.com/manuals/primatest/redwoodhq/2.0/en/topic/documentation");
-			        window.open("../help/RedwoodHQ使用文档（用例编写及执行人员部分）.pdf")
-                            }
+                            tooltip: "查看帮助文档",
+							menu:{
+                                plain:true,
+                                items:[
+                                    {
+                                        text: '用例编写及执行人员',
+                                        handler: function(){
+                                            window.open("../help/RedwoodHQ使用文档（用例编写及测试执行）.pdf");
+                                        }
+                                    },
+                                    {
+                                        text: '底层代码开发人员',
+                                        handler : function() {
+                                            window.open("../help/RedwoodHQ使用文档（底层代码开发）.pdf");
+                                        }
+                                    }
+                                ]
 
+                            }
                         },{
                             xtype:"button",
                             icon: 'images/earth2.png',
