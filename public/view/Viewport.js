@@ -68,6 +68,12 @@ Ext.define('Redwood.view.Viewport', {
                                         handler : function() {
                                             window.open("../help/RedwoodHQ使用文档（底层代码开发）.pdf");
                                         }
+                                    },
+									{
+                                        text: '官方文档（英文）',
+                                        handler : function() {
+                                            window.open("http://www.manula.com/manuals/primatest/redwoodhq/2.0/en/topic/redwoodhq-overview");
+                                        }
                                     }
                                 ]
 
