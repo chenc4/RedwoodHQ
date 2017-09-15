@@ -58,13 +58,13 @@ Ext.define('Redwood.view.Viewport', {
                                 plain:true,
                                 items:[
                                     {
-                                        text: '用例编写及执行人员',
+                                        text: '用例编写及执行人员必读',
                                         handler: function(){
                                             window.open("../help/RedwoodHQ使用文档（用例编写及测试执行）.pdf");
                                         }
                                     },
                                     {
-                                        text: '底层代码开发人员',
+                                        text: '底层代码开发人员必读',
                                         handler : function() {
                                             window.open("../help/RedwoodHQ使用文档（底层代码开发）.pdf");
                                         }
