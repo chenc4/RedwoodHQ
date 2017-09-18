@@ -269,7 +269,7 @@ function insertTC(fullName,project,tcType,tags,callback){
         language = "Python";
     }
     var db = require('../common').getDB();
-    var newTC = {scriptLang:language,name:fullName,type:tcType,script:fullName,status:"Automated",tag:tags,project:project,actioncollection:[]};
+    var newTC = {scriptLang:language,name:fullName,type:tcType,script:fullName,status:"Automated",tag:tags,project:project,collection:[]};
     db.collection('testcases', function(err, collection) {
         collection.insert(newTC, {safe:true},function(err,tcReturnData){
             if(err == null){
