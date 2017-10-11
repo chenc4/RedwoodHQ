@@ -1,7 +1,2 @@
-node_modules
-bin
-executionfiles
-Java
 agent.pid
 agent.vnc.pid
-cache
