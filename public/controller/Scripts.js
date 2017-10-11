@@ -1086,7 +1086,6 @@ Ext.define("Redwood.controller.Scripts", {
                             }
                         });
                     };
-
                     var pipReqFilePath = "/"+Ext.util.Cookies.get("username")+"/PipRequirements";
                     if(script.path.indexOf(pipReqFilePath) == script.path.length -pipReqFilePath.length){
                         if(!script.getValue().match(/[^\W_]/)){

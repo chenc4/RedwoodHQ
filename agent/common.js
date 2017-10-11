@@ -180,6 +180,7 @@ sendFileToServer_old = function(file,id,url,host,port,cookie,callback){
     var stat = fs.statSync(file);
 
     var readStream = fs.createReadStream(file);
+    
     var boundary = '--------------------------';
     for (var i = 0; i < 24; i++) {
         boundary += Math.floor(Math.random() * 10).toString(16);

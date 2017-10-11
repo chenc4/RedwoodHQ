@@ -9,10 +9,10 @@ var multiparty = require('multiparty');
 exports.uploadFromAgent = function(req, res){
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
-        if (err){
-	    res.send('{error:"'+err+'"}');
-	    return;
-	}
+		if (err){
+			res.send('{error:"'+err+'"}');
+			return;
+		}
         // get the temporary location of the file
         var tmp_path = files.file[0].path;
         // set where the file should actually exists - in this case it is in the "images" directory
