@@ -217,19 +217,36 @@ class Launcher {
             String id = UUID.randomUUID().toString() + action.resultID
 
             try{
-                try {
-                    def browser = Class.forName("actions.selenium.Browser")
-                    if((browser.Driver != null) &&(browser.class.name.toString() != "SwipeableWebDriver")){
-                        File scrFile = ((org.openqa.selenium.TakesScreenshot)browser.Driver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-                        new File(id) << scrFile.bytes
-                    }
-                } catch(Exception e) {
-                    // it does not exist on the classpath
-                }
+				try {
+					println("Using actions.selenium.Browser.");
+					def browser = Class.forName("actions.selenium.Browser")
+					if((browser.Driver != null) &&(browser.class.name.toString() != "SwipeableWebDriver")){
+						println("Start screenshot using actions.selenium.Browser.");
+						File scrFile = ((org.openqa.selenium.TakesScreenshot)browser.Driver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+						new File(id) << scrFile.bytes
+					}
+				} catch (Exception e) {
+					println("Error using actions.selenium.Browser, continue.");
+					// TODO: handle exception
+				}
+				
+
+				try {
+					println("Using appium actions.Driver.");
+					def browserAppium = Class.forName("actions.Driver")
+					if((browserAppium.driver != null)){
+						println("Start screenshot appium actions.Driver.");
+						File scrFile = ((org.openqa.selenium.TakesScreenshot)browserAppium.driver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+						new File(id) << scrFile.bytes
+					}
+				} catch (Exception e) {
+					println("Error using appium actions.Driver, continue.");
+					// TODO: handle exception
+				}
             }
             finally{
-            //catch(Exception ex){
                 if(!new File(id).exists()){
+					println("File not exist, capturing full screen.");
                     if(!GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance()){
                         BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
                         ImageIO.write(image, "png", new File(id));
