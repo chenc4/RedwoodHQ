@@ -18,7 +18,6 @@ common.parseConfig(function(){
                     GetAllTestCases(db,{project:argv.project},function(testcases){
                         testcases.forEach(function(testcase){
                             elasticsearch.indexTestCase(testcase,"PUT");
-                            console.log("Importing "+testcase.name)
                         })
                     })
                 })
@@ -28,7 +27,6 @@ common.parseConfig(function(){
             GetAllTestCases(db,{},function(testcases){
                 testcases.forEach(function(testcase){
                     elasticsearch.indexTestCase(testcase,"PUT");
-                    console.log("Importing "+testcase.name)
                 })
             })
         }
