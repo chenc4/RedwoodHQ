@@ -5,4 +5,10 @@ node-gitteh
 compiled
 log
 vendor
+<<<<<<< HEAD
 test
+=======
+test
+/.project
+/.settings/
+>>>>>>> branch 'master' of git@github.com:chenc4/RedwoodHQ.git
