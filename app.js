@@ -1,3 +1,4 @@
+
 /**
  * Module dependencies.
  */
@@ -48,8 +49,7 @@ var express = require('express')
   , actionHistory = require('./routes/actionHistory')
   , versionControl = require('./routes/versionControl')
   , syncIDE = require('./routes/syncIDE')
-  , testcaseHistory = require('./routes/testcaseHistory')
-  , remoteexecution = require('./routes/remoteexecution');
+  , testcaseHistory = require('./routes/testcaseHistory');
 
 var realFs = require("fs");
 var gracefulFs = require("graceful-fs");
@@ -164,9 +164,6 @@ app.post('/variableTags',auth.auth, variableTags.variableTagsPost);
 
 //start execution
 app.post('/executionengine/startexecution', executionengine.startexecutionPost);
-
-// remote execution
-app.get('/api/remoteexecution/startexecution', remoteexecution.startexecutionPost);
 
 //stop
 app.post('/executionengine/stopexecution',auth.auth, executionengine.stopexecutionPost);
