@@ -24,6 +24,9 @@ Ext.application({
             mainTab.down("actions").down("#cloneAction").hide();
             mainTab.down("actions").down("#newAction").hide();
         }
+		else if(Ext.util.Cookies.get('role') == "Developer"){
+			mainTab.remove(mainTab.down("#adminTab"));
+		}  
     },
 
     controllers: [
