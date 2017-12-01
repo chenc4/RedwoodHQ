@@ -2681,19 +2681,6 @@ function _generateEmailReport(settings, execution, callback) {
     function _formTestcaseResultsSummaryReport(callbackFunc) {
         var str = '';
         var rows = '';
-        var elapse_time = '';
-        var tags = '';
-        db.collection('executiontestcases', function(err, collection) {
-        	collection.find({executionID:execution._id}, {}, function(err, cursor) {
-                if(!cursor || err) return '<p>_formTestResultsReport failed</p>';
-                cursor.each(function(err, testcaseresult) {
-	            	if(testcaseresult) {
-	            		elapse_time = testcaseresult.runtime;
-	            		tags = testcaseresult.tag;
-	            	}
-                });
-        	});
-        });
         
         db.collection('testcaseresults', function(err, collection) {
             collection.find({executionID:execution._id}, {}, function(err, cursor) {
@@ -2704,6 +2691,7 @@ function _generateEmailReport(settings, execution, callback) {
                           '<p><table border="1" cellpadding="3">' +
                             '<tr>' +
                                 '<th><b>Name </b></th>' +
+                                '<th><b>Tag </b></th>' +
                                 '<th><b>Status </b></th>' +
                                 '<th><b>Elapsed Time </b></th>' +
                                 '<th><b>Result </b></th>' +
@@ -2711,39 +2699,68 @@ function _generateEmailReport(settings, execution, callback) {
                                 //'<th><b>Trace </b></th>' +
                             '</tr>';
 
-                cursor.each(function(err, testcaseresult) {
-                    if(testcaseresult) {
-
-                        console.log( "DATA => " + testcaseresult.name + testcaseresult.status + testcaseresult.result);
-                        var row = '<tr>' +
-                                    '<td>'+ testcaseresult.name + ' </td>';
-                        if(testcaseresult.status === 'Finished') {
-                            row +=  '<td><b style="color:green">' + testcaseresult.status + ' </b></td>';
-                        } else {
-                            row +=  '<td><b style="color:orange">' + testcaseresult.status + ' </b></td>';
-                        }
-                        row +=  '<td><b style="color:green">' + elapse_time + 'ms </b></td>';
-                        if(testcaseresult.result === 'Passed') {
-                            row +=  '<td><b style="color:green">' + testcaseresult.result + ' </b></td>';
-                        } else if(testcaseresult.result === 'Failed') {
-                            row +=  '<td><b style="color:red">' + testcaseresult.result + ' </b></td>';
-                        } else {
-                            row +=  '<td><b>' + testcaseresult.result + ' </b></td>';
-                        }
-                        row +=  '<td><b style="color:green">' + testcaseresult.error + ' </b></td>';
-                        //row +=  '<td><b style="color:green">' + testcaseresult.trace + ' </b></td>';
-                        row += '</tr>';
-                        rows += row;
-                    } else {
-                        str += rows + '</table></p>';
-                        console.log(str);
-                        callbackFunc(str);
+                cursor.toArray(function(err, testcaseresults) {
+                	var count = testcaseresults.length - 1;
+                    var fn = function () {
+                    	_formTestcaseAddCaseDetail(testcaseresults[count], function (tstr) {
+                    		rows += tstr;
+                            count -= 1;
+                            if (count >= 0) {
+                            	fn();
+                            } else {
+                                str += rows + '</table></p>';
+                                console.log(str);
+                                callbackFunc(str);
+                            }
+                            
+                        });
                     }
-                });
 
+                    fn();
+                });
+                
+                
             });
         });
-
+    }
+    
+    function _formTestcaseAddCaseDetail(testcaseresult, callbackFunc) {
+    	var rows = '';
+    	
+    	db.collection('executiontestcases', function(err, EXEcollection) {
+        	EXEcollection.findOne({executionID:execution._id, testcaseID:testcaseresult.testcaseID.toString()}, {}, function(err, exedocument) {
+	            var row = '<tr>' +
+	                        '<td>'+ testcaseresult.name + ' </td>';
+	            if (!exedocument || err) {
+	            	row +=  '<td> </td>';
+	            } else {
+	            	row +=  '<td>' + exedocument.tag + ' </td>';
+	            }
+	            
+	            if(testcaseresult.status === 'Finished') {
+	                row +=  '<td><b style="color:green">' + testcaseresult.status + ' </b></td>';
+	            } else {
+	                row +=  '<td><b style="color:orange">' + testcaseresult.status + ' </b></td>';
+	            }
+	            if (!exedocument || err) {
+	            	row +=  '<td> </td>';
+	            } else {
+	            	row +=  '<td>' + exedocument.runtime + 'ms </td>';
+	            }
+	            if(testcaseresult.result === 'Passed') {
+	                row +=  '<td><b style="color:green">' + testcaseresult.result + ' </b></td>';
+	            } else if(testcaseresult.result === 'Failed') {
+	                row +=  '<td><b style="color:red">' + testcaseresult.result + ' </b></td>';
+	            } else {
+	                row +=  '<td><b>' + testcaseresult.result + ' </b></td>';
+	            }
+	            row +=  '<td><b style="color:red">' + testcaseresult.error + ' </b></td>';
+	            //row +=  '<td><b style="color:red">' + testcaseresult.trace + ' </b></td>';
+	            row += '</tr>';
+	            rows += row;
+	            callbackFunc(rows);
+        	});
+        });
     }
 
     function _prepareTestResultRow(rowData, addOrderColumnData) {
